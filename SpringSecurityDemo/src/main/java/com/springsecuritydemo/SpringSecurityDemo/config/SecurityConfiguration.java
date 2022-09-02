@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,13 +20,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	DataSource dataSource;
 	
+	@Autowired
+	UserDetailsService userDetailService;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication()
-		.dataSource(dataSource)
-		.withDefaultSchema()
-		.withUser(User.withUsername("darsh").password("darsh123").roles("USER"))
-		.withUser(User.withUsername("test").password("darsh123").roles("ADMIN"));
+		auth.userDetailsService(userDetailService);				
 	}
 	
 	@Bean

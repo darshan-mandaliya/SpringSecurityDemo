@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String all() {
         return "Welcome All : Greetings from Spring Boot!";
     }
